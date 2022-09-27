@@ -12,6 +12,9 @@ dependencies:
     sdk: flutter
 
   get:
+  firebase_auth:
+  firebase_core:
+  hovering:
 
 dev_dependencies:
   flutter_test:
