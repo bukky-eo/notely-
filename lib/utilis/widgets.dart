@@ -62,11 +62,11 @@ class EnterText extends StatelessWidget {
       keyboardType: inputType,
       decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kBackground),
+            borderSide: const BorderSide(color: kBackground),
             borderRadius: BorderRadius.circular(12),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black),
+            borderSide: const BorderSide(color: Colors.black),
             borderRadius: BorderRadius.circular(12),
           ),
           hintText: title,
@@ -87,8 +87,8 @@ class Tick extends StatelessWidget {
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.check),
-          SizedBox(
+          const Icon(Icons.check),
+          const SizedBox(
             width: 25,
             height: 30,
           ),
@@ -126,19 +126,19 @@ class HoverCard extends StatelessWidget {
       child: Container(
         height: 125,
         width: 130,
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         child: Column(
           children: [
             Text(heading, style: kDetailsText),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               '\$$number',
               style: kPricing,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               season,
-              style: TextStyle(
+              style: const TextStyle(
                   color: kDetails, fontSize: 14, fontWeight: FontWeight.bold),
             )
           ],
@@ -148,25 +148,39 @@ class HoverCard extends StatelessWidget {
   }
 }
 
-class MyHeaderDrawer extends StatefulWidget {
-  const MyHeaderDrawer({Key? key}) : super(key: key);
+class MyHeaderDrawer extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  const MyHeaderDrawer({Key? key, required this.icon, required this.title})
+      : super(key: key);
 
-  @override
-  State<MyHeaderDrawer> createState() => _MyHeaderDrawerState();
-}
-
-class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 30),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      padding: const EdgeInsets.only(top: 30),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(image: AssetImage('assests/'))),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+            ),
+            child: Icon(
+              icon,
+              color: kOrange,
+            ),
+          ),
+          Text(
+            title,
+            style: kProfileText,
+          ),
+          GestureDetector(
+            onTap: () {},
+            child: Icon(
+              Icons.navigate_next_outlined,
+              color: kProfile,
+            ),
           )
         ],
       ),

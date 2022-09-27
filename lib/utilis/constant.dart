@@ -19,3 +19,6 @@ const kDetailsText =
     TextStyle(color: kDetails, fontSize: 16, fontWeight: FontWeight.bold);
 const kPricing =
     TextStyle(fontSize: 28, color: kDetails, fontWeight: FontWeight.bold);
+const kProfile = Color(0xff595555);
+const kProfileText =
+    TextStyle(color: kProfile, fontSize: 16, fontWeight: FontWeight.bold);
