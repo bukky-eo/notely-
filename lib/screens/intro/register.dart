@@ -6,7 +6,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class Register extends StatefulWidget {
   final VoidCallback showLoginPage;
-  const Register({Key? key, required this.showLoginPage}) : super(key: key);
+  // final ValueChanged<String> onSubmit;
+  const Register({
+    Key? key,
+    required this.showLoginPage,
+  }) : super(key: key);
 
   @override
   State<Register> createState() => _RegisterState();
@@ -16,6 +20,7 @@ class _RegisterState extends State<Register> {
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
+  bool _submitted = false;
 
   @override
   void dispose() {
@@ -23,6 +28,26 @@ class _RegisterState extends State<Register> {
     _nameController;
     _passwordController;
     super.dispose();
+  }
+
+  String? get _errorText {
+    final password = _passwordController.value.text;
+    final text = _emailController.value.text;
+    final name = _nameController.value.text;
+    if (text.isEmpty && password.isEmpty && name.isEmpty) {
+      return "Can't be empty";
+    }
+    if (password.length < 7) {
+      return 'Too Short';
+    }
+    return null;
+  }
+
+  void _submit() {
+    setState(() => _submitted = true);
+    if (_errorText == null) {
+      print(_emailController.value.text);
+    }
   }
 
   Future Register() async {
@@ -34,7 +59,7 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: kBackground,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -47,46 +72,59 @@ class _RegisterState extends State<Register> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text(
-                'Create a free account',
-                style: kHeading,
-              ),
-              Text(
-                'Join Notely for free. Create and share unlimited notes with your friends.',
-                style: kSmallTextStyle,
-                textAlign: TextAlign.center,
-              ),
-              EnterText(
-                  inputType: TextInputType.name,
-                  controller: _nameController,
-                  title: 'Full Name'),
-              EnterText(
-                  inputType: TextInputType.text,
-                  controller: _emailController,
-                  title: 'Email'),
-              EnterText(
-                  inputType: TextInputType.text,
-                  controller: _passwordController,
-                  title: 'Password'),
-              ColoredButton(
-                  title: 'Create Account',
-                  onTap: () {
-                    setState(() {
-                      Register();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Purchase()));
-                    });
-                  }),
-              ClickText(
-                  label: 'Already have an account', onTap: widget.showLoginPage)
-            ],
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: ValueListenableBuilder(
+            valueListenable: _emailController,
+            builder: (context, TextEditingValue value, __) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Create a free account',
+                    style: kHeading,
+                  ),
+                  Text(
+                    'Join Notely for free. Create and share unlimited notes with your friends.',
+                    style: kSmallTextStyle,
+                    textAlign: TextAlign.center,
+                  ),
+                  EnterText(
+                      inputType: TextInputType.name,
+                      controller: _nameController,
+                      // errorText: _submitted ? _errorText : null,
+                      title: 'Full Name'),
+                  EnterText(
+                      inputType: TextInputType.text,
+                      controller: _emailController,
+                      // errorText: _submitted ? _errorText : null,
+                      title: 'Email'),
+                  EnterText(
+                      inputType: TextInputType.text,
+                      // errorText: _submitted ? _errorText : null,
+                      controller: _passwordController,
+                      title: 'Password'),
+                  ColoredButton(
+                      title: 'Create Account',
+                      onTap: () {
+                        setState(() {
+                          _emailController.value.text.isNotEmpty
+                              ? _submit
+                              : null;
+                          Register();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Purchase()));
+                        });
+                      }),
+                  ClickText(
+                      label: 'Already have an account',
+                      onTap: widget.showLoginPage)
+                ],
+              );
+            },
           ),
         ),
       ),

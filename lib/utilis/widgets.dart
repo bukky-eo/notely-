@@ -48,12 +48,14 @@ class EnterText extends StatelessWidget {
   final String title;
   final TextInputType inputType;
   final TextEditingController controller;
-  const EnterText(
-      {Key? key,
-      required this.controller,
-      required this.title,
-      required this.inputType})
-      : super(key: key);
+  // final String? errorText;
+  const EnterText({
+    Key? key,
+    required this.controller,
+    required this.title,
+    required this.inputType,
+    // required this.errorText
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +63,7 @@ class EnterText extends StatelessWidget {
       controller: controller,
       keyboardType: inputType,
       decoration: InputDecoration(
+          // errorText: errorText,
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: kBackground),
             borderRadius: BorderRadius.circular(12),
@@ -162,9 +165,11 @@ class MyHeaderDrawer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
+            height: 35,
+            width: 40,
             decoration: const BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(12)),
+              borderRadius: BorderRadius.all(Radius.circular(15)),
             ),
             child: Icon(
               icon,

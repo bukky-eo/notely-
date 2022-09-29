@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_fly/mainpage.dart';
 import 'package:note_fly/screens/intro/login.dart';
 import 'package:note_fly/screens/intro/register.dart';
 import 'package:note_fly/utilis/constant.dart';
@@ -73,8 +74,7 @@ class _HomePageState extends State<HomePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      Register(showLoginPage: toggleScreens)));
+                                  builder: (context) => MainPage()));
                         }),
                     ClickText(
                       label: 'Already have an account',
