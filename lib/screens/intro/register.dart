@@ -78,7 +78,7 @@ class _RegisterState extends State<Register> {
             valueListenable: _emailController,
             builder: (context, TextEditingValue value, __) {
               return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
@@ -93,25 +93,23 @@ class _RegisterState extends State<Register> {
                   EnterText(
                       inputType: TextInputType.name,
                       controller: _nameController,
-                      // errorText: _submitted ? _errorText : null,
+                      errorText: _submitted ? _errorText : null,
                       title: 'Full Name'),
                   EnterText(
                       inputType: TextInputType.text,
                       controller: _emailController,
-                      // errorText: _submitted ? _errorText : null,
+                      errorText: _submitted ? _errorText : null,
                       title: 'Email'),
                   EnterText(
                       inputType: TextInputType.text,
-                      // errorText: _submitted ? _errorText : null,
+                      errorText: _submitted ? _errorText : null,
                       controller: _passwordController,
                       title: 'Password'),
                   ColoredButton(
                       title: 'Create Account',
                       onTap: () {
                         setState(() {
-                          _emailController.value.text.isNotEmpty
-                              ? _submit
-                              : null;
+                          _errorText != null ? _submit : null;
                           Register();
                           Navigator.push(
                               context,

@@ -48,14 +48,14 @@ class EnterText extends StatelessWidget {
   final String title;
   final TextInputType inputType;
   final TextEditingController controller;
-  // final String? errorText;
-  const EnterText({
-    Key? key,
-    required this.controller,
-    required this.title,
-    required this.inputType,
-    // required this.errorText
-  }) : super(key: key);
+  final String? errorText;
+  const EnterText(
+      {Key? key,
+      required this.controller,
+      required this.title,
+      required this.inputType,
+      required this.errorText})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class EnterText extends StatelessWidget {
       controller: controller,
       keyboardType: inputType,
       decoration: InputDecoration(
-          // errorText: errorText,
+          errorText: errorText,
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: kBackground),
             borderRadius: BorderRadius.circular(12),

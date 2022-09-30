@@ -62,18 +62,19 @@ class _LoginPageState extends State<LoginPage> {
                 EnterText(
                     inputType: TextInputType.text,
                     controller: _emailController,
-                    // errorText: _submitted ? _errorText : null,
+                    errorText: _submitted ? _errorText : null,
                     title: 'Email'),
                 EnterText(
                     inputType: TextInputType.text,
                     controller: _passwordController,
-                    // errorText: _submitted ? _errorText : null,
+                    errorText: _submitted ? _errorText : null,
                     title: 'Password'),
                 ColoredButton(
                     title: 'Login',
                     onTap: () {
                       setState(() {
                         signIn();
+                        _errorText != null ? _submit() : null;
                         Navigator.push(
                             context,
                             MaterialPageRoute(
